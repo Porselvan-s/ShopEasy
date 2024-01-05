@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from shop.form import CustomUserForm
+from shop. form import CustomUserForm
 from . models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
@@ -25,7 +25,10 @@ def favview_page(request):
   
 def remove_cart(request,cid):
     cartitem = Cart.objects.get(id=cid)
+    product_status = Product.objects.get(id=cartitem.product.id)
+    product_status.save()
     cartitem.delete()
+    print("here : ",product_status.quantity)
     return redirect("/cart")
 
 def remove_fav(request,cid):
@@ -60,6 +63,8 @@ def add_to_cart(request):
             product_id = data['pid']
             # print(request.user.id)
             product_status = Product.objects.get(id=product_id)
+            product_status.quantity-=product_qty
+            product_status.save()
             if product_status:
                 if Cart.objects.filter(user = request.user.id,product_id=product_id):
                     return JsonResponse({'status':'Product Already in Cart'}, status = 200)
@@ -84,6 +89,12 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect("/")
     else:
+        return render(request,"shop/login.html")
+    
+def login_page_user(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+    else:
         if request.method == "POST":
             name = request.POST.get('username')
             password = request.POST.get('password')
@@ -94,8 +105,10 @@ def login_page(request):
                 return redirect("/")
             else:
                 messages.error(request,"Ivalid Username or Password")
-                return redirect("/login")
-        return render(request,"shop/login.html")
+                return redirect("/login_user")
+        return render(request,"shop/login_user.html")
+
+
 def register(request):
   form=CustomUserForm()
   if request.method=='POST':
@@ -103,7 +116,7 @@ def register(request):
     if form.is_valid():
       form.save()
       messages.success(request,"Registration Success You can Login Now..!")
-      return redirect('/login')
+      return redirect('/login_user')
   return render(request,"shop/register.html",{'form':form})
  
 

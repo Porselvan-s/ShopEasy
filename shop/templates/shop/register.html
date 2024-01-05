@@ -19,6 +19,11 @@ ShopEasy register page
                 <div class="mb-4">
                   <label for="" class="form-label">User Name</label>
                   {{form.username}}
+                  <ul>
+                    <li>Required. 150 characters or fewer.</li>
+                    <li>Letters, digits and @/./+/-/_ only.</li>
+                 </ul>
+            
                 </div>
                 <div class="mb-4">
                   <label for="" class="form-label">User Email</label>
@@ -34,13 +39,14 @@ ShopEasy register page
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
               </form>
-              <p class="my-2">Already user ? <a href="{% url 'login' %}">Login Now</a> </p>
+              <p class="my-2">Already user ? <a href="{% url 'login_user' %}">Login Now</a> </p>
             </div>
             <div class="col-6">
               
                   {% if form.errors.username %}
-                    <label class="text-danger d-block">{{ form.errors.username }}</label>
+                  <label class="text-danger d-block">{{ form.errors.username }}</label>
                   {% endif %}
+          
               
                   {% if form.errors.email %}
                   <label class="text-danger d-block">{{ form.errors.email }}</label>

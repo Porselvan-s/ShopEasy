@@ -6,27 +6,23 @@ ShopEasy register page
 <div class="container" style="margin-top: 70px;">
     <div class="row">
         <div class="col-12">
-            <h4 class="mb-3">User Login</h4>
+            <h4 class="mb-3">User and Admin login</h4>
             <hr style="border-color:#b8bfc2"></div>
             {% include 'shop/inc/message.html' %}
     </div>
-    <section class="py-4 my-5">
-        <div class="container">
-            <div class="col-6">
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="mb-4">
-                        <label for="" class="form-label">User Name</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Enter Your Username">
-                    </div>
-                    <div class="mb-4">
-                        <label for="" class="form-label">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your Password">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Register</button>
-                </form>
+    <div class="container text-center" style="min-height: 400px;">
+        <div class="row justify-content-md-center">
+            <div class="col-6 col-lg-5 my-5">
+                <h4 class="mb-3">For User Login click here </h4>  
+                <a href="{% url 'login_user'%}" class="btn btn-primary my-2 " style=>User_Login</a>
             </div>
+            <div class="col-6 col-lg-5 my-5">
+                <h4 class="mb-3">For Admin Login click here </h4>  
+                <a  href="{% url 'admin:index' %}" class="btn btn-secondary">Admin</a>
+            </div>
+            <div class="col-6">
+          </div> 
         </div>
-    </section>
+      </div>
 </div>
 {% endblock content %}
